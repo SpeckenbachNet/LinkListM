@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS `#__linklistm_links` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `catid` INT UNSIGNED NOT NULL DEFAULT 0,
+    `title` VARCHAR(255) NOT NULL,
+    `alias` VARCHAR(400) NOT NULL DEFAULT '',
+    `url` VARCHAR(2048) NOT NULL,
+    `description` TEXT NULL,
+    `hits` INT UNSIGNED NOT NULL DEFAULT 0,
+    `state` TINYINT NOT NULL DEFAULT 1,
+    `ordering` INT NOT NULL DEFAULT 0,
+    `access` INT UNSIGNED NOT NULL DEFAULT 1,
+    `language` CHAR(7) NOT NULL DEFAULT '*',
+    `created` DATETIME NOT NULL,
+    `created_by` INT UNSIGNED NOT NULL DEFAULT 0,
+    `modified` DATETIME NULL,
+    `modified_by` INT UNSIGNED NOT NULL DEFAULT 0,
+    `publish_up` DATETIME NULL,
+    `publish_down` DATETIME NULL,
+
+    PRIMARY KEY (`id`),
+    KEY `idx_catid` (`catid`),
+    KEY `idx_state` (`state`),
+    KEY `idx_access` (`access`),
+    KEY `idx_language` (`language`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;

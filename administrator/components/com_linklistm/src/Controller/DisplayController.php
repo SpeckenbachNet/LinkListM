@@ -1,0 +1,16 @@
+<?php
+
+namespace SpeckenbachNet\Component\LinkListM\Administrator\Controller;
+
+\defined('_JEXEC') or die;
+
+use Joomla\CMS\MVC\Controller\BaseController;
+
+class DisplayController extends BaseController
+{
+    // Use parent controller's display method with given parameters
+    public function display($cachable = false, $urlparams = array())
+    {
+        return parent::display($cachable, $urlparams);
+    }
+}
