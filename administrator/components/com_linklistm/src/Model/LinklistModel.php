@@ -5,6 +5,7 @@ namespace SpeckenbachNet\Component\LinkListM\Administrator\Model;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Factory;
 
 class LinklistModel extends AdminModel
 {
@@ -35,12 +36,21 @@ class LinklistModel extends AdminModel
     // Load previously submitted form data or current link data
     protected function loadFormData()
     {
-        $data = $this->getApplication()->getUserState('com_linklistm.edit.linklist.data', []);
+        $data = Factory::getApplication()->getUserState('com_linklistm.edit.linklist.data', []);
 
         if (empty($data)) {
             $data = $this->getItem();
         }
 
         return $data;
+    }
+
+    protected function prepareTable($table)
+    {
+        if (empty($table->alias)) {
+            $table->alias = $table->title;
+        }
+
+        $table->alias = \Joomla\CMS\Application\ApplicationHelper::stringURLSafe($table->alias);
     }
 }

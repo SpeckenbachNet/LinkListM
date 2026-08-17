@@ -37,14 +37,14 @@ if ($saveOrder && !empty($this->items)) {
         </div>
     <?php else : ?>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="linklist">
                 <thead>
                     <tr>
-                        <td class="w-1 text-center">
+                        <th class="w-1 text-center">
                             <?php echo HTMLHelper::_('grid.checkall'); ?>
-                        </td>
+                        </th>
                         <th scope="col" class="w-1 text-center d-none d-md-table-cell">
-                                    <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-sort'); ?>
+                            <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-sort'); ?>
                         </th>
                         <th scope="col" style="min-width:85px" class="w-1 text-center">
                             <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
@@ -70,7 +70,7 @@ if ($saveOrder && !empty($this->items)) {
                             endif; ?>>
                     <?php foreach ($this->items as $i => $item) :
                         ?>
-                        <?php $item->cat_link = Route::_('index.php?option=com_categories&extension=com_linklist&task=edit&type=other&cid[]=' . $item->catid); ?>
+                        <?php $item->cat_link = Route::_('index.php?option=com_categories&extension=com_linklistm&task=edit&type=other&cid[]=' . $item->catid); ?>
                         <?php $canCreate      = $user->authorise('core.create', 'com_linklistm.category.' . $item->catid); ?>
                         <?php $canEdit        = $user->authorise('core.edit', 'com_linklistm.category.' . $item->catid); ?>
                         <?php $canCheckin     = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || !$item->checked_out; ?>
@@ -102,15 +102,29 @@ if ($saveOrder && !empty($this->items)) {
                             </td>
 
                             <td class="text-center">
-                                <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'linklistm.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+                                <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'linklists.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
                             </td>
 
                             <td>
-                                <strong>
-                                    <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
-                                </strong>
-                                <div class="small text-muted">
-                                    <?php echo htmlspecialchars($item->url, ENT_QUOTES, 'UTF-8'); ?>
+                                <div>
+                                    <?php if ($item->checked_out) : ?>
+                                        <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'weblinks.', $canCheckin); ?>
+                                    <?php endif; ?>
+                                        <?php if ($canEdit || $canEditOwn) : ?>
+                                            <a href="<?php echo Route::_('index.php?option=com_linklistm&task=linklist.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                                                <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
+                                            </a>
+                                        <?php else : ?>
+                                            <?php echo $this->escape($item->title); ?>
+                                        <?php endif; ?>
+
+                                    <div class="small">
+                                        <?php echo Text::_('JFIELD_ALIAS_LABEL'); ?>:
+                                        <?php echo $this->escape($item->alias); ?>
+                                    </div>
+                                    <div class="small text-muted">
+                                        <?php echo htmlspecialchars($item->url, ENT_QUOTES, 'UTF-8'); ?>
+                                    </div>
                                 </div>
                             </td>
 
@@ -135,6 +149,7 @@ if ($saveOrder && !empty($this->items)) {
     <?php endif; ?>
 
     <input type="hidden" name="task" value="">
+    <input type="hidden" name="boxchecked" value="0">
     <?php echo HTMLHelper::_('form.token'); ?>
 
 </form>

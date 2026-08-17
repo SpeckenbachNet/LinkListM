@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="details">
+        <field
+            name="id"
+            type="number"
+            label="JGLOBAL_FIELD_ID_LABEL"
+            default="0"
+            readonly="true"
+        />
+
+        <field
+            name="title"
+            type="text"
+            label="COM_LINKLISTM_TITLE"
+            size="40"
+            required="true"
+        />
+
+        <field
+            name="alias"
+            type="text"
+            label="JFIELD_ALIAS_LABEL"
+            size="40"
+            hint="JFIELD_ALIAS_PLACEHOLDER"
+        />
+
+        <field
+            name="url"
+            type="url"
+            label="COM_LINKLISTM_URL"
+            size="40"
+            required="true"
+        />
+
+        <field
+            name="description"
+            type="editor"
+            label="COM_LINKLISTM_DESCRIPTION"
+            filter="raw"
+            buttons="true"
+        />
+
+        <field
+            name="catid"
+            type="category"
+            label="COM_LINKLISTM_CATEGORY"
+            extension="com_linklistm"
+            required="true"
+        />
+
+        <field
+            name="state"
+            type="list"
+            label="JSTATUS"
+            default="1"
+            filter="options"
+        >
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+            <option value="2">JARCHIVED</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+
+        <field
+            name="access"
+            type="accesslevel"
+            label="JFIELD_ACCESS_LABEL"
+            default="1"
+        />
+    </fieldset>
+</form>

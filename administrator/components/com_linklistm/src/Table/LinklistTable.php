@@ -13,5 +13,8 @@ class LinklistTable extends Table
     {
         // Define table name, primary key column and database connection
         parent::__construct('#__linklistm_links', 'id', $db);
+
+        // Map internal "published" to our actual column "state"
+        $this->setColumnAlias('published', 'state');
     }
 }

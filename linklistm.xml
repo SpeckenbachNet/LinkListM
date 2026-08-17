@@ -35,7 +35,7 @@
 				COM_LINKLISTM_MENU_LINKS
 			</menu>
 
-			<menu link="option=com_linklistm&amp;view=category">
+			<menu link="option=com_categories&amp;extension=com_linklistm">
 				COM_LINKLISTM_MENU_CATEGORIES
 			</menu>
 		</submenu>

@@ -7,6 +7,34 @@
             label="COM_LINKLISTM_FILTER_SEARCH_LABEL"
             hint="JSEARCH_FILTER"
         />
+
+        <field
+            name="published"
+            type="status"
+            label="JOPTION_FILTER_PUBLISHED"
+            onchange="this.form.submit();"
+        >
+            <option value="">JOPTION_SELECT_PUBLISHED</option>
+        </field>
+
+        <field
+            name="category_id"
+            type="category"
+            label="JOPTION_FILTER_CATEGORY"
+            extension="com_linklistm"
+            onchange="this.form.submit();"
+        >
+            <option value="">JOPTION_SELECT_CATEGORY</option>
+        </field>
+
+        <field
+            name="access"
+            type="accesslevel"
+            label="JOPTION_FILTER_ACCESS"
+            onchange="this.form.submit();"
+        >
+            <option value="">JOPTION_SELECT_ACCESS</option>
+        </field>
     </fields>
 
     <fields name="list">

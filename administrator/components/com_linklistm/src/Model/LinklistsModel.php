@@ -16,6 +16,8 @@ class LinklistsModel extends ListModel
             $config['filter_fields'] = [
                 'id', 'a.id',
                 'title', 'a.title',
+                'checked_out', 'a.checked_out',
+                'checked_out_time', 'a.checked_out_time',
                 'catid', 'a.catid',
                 'category_title',
                 'state', 'a.state',
@@ -35,7 +37,7 @@ class LinklistsModel extends ListModel
         $db = $this->getDatabase();
         $query = $db->getQuery(true);
             
-        $query->select('a.id, a.title, a.url, a.catid, a.access, a.state, c.title AS category_title, v.title AS access_level')
+        $query->select('a.id, a.alias, a.title, a.url, a.catid, a.access, a.state, a.checked_out, a.checked_out_time, c.title AS category_title, v.title AS access_level')
             ->from($db->quoteName('#__linklistm_links', 'a'))
             ->leftJoin(
                 $db->quoteName('#__categories', 'c')
@@ -44,6 +46,10 @@ class LinklistsModel extends ListModel
             ->leftJoin(
                 $db->quoteName('#__viewlevels', 'v')
                 . ' ON v.id = a.access'
+            )
+            ->leftJoin(
+                $db->quoteName('#__users', 'uc')
+                . ' ON uc.id = a.checked_out'
             );
 
         // Filter by search in title
@@ -63,6 +69,16 @@ class LinklistsModel extends ListModel
                     ->bind(':title', $search)
                     ->bind(':url', $search);
             }
+        }
+
+        // Filter by published state
+        $published = (string) $this->getState('filter.published');
+
+        if (is_numeric($published)) {
+            $query->where($db->quoteName('a.state') . ' = :state')
+                ->bind(':state', $published, ParameterType::INTEGER);
+        } elseif ($published === '') {
+            $query->whereIn($db->quoteName('a.state'), [0, 1]);
         }
 
         // Filter by access level

@@ -77,9 +77,9 @@ protected function addToolbar()
 
 			// Child entries
             $childBar = $dropdown->getChildToolbar();
-            $childBar->publish('linnklist.publish')->listCheck(true);
+            $childBar->publish('linklists.publish')->listCheck(true);
             $childBar->unpublish('linklists.unpublish')->listCheck(true);
-            $childBar->archive('linklists.archive')->listCheck(true);
+            //$childBar->archive('linklists.archive')->listCheck(true);
 
 			// If user is admin create checkin entry
             if ($user->authorise('core.admin')) {
