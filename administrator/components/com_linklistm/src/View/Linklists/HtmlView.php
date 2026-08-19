@@ -63,7 +63,7 @@ protected function addToolbar()
 		// Show the "New" button if the user can create links in the current category
 		// or is authorized to create links in at least one category.
         if ($canDo->get('core.create') || \count($user->getAuthorisedCategories('com_linklistm', 'core.create')) > 0) {
-            ToolbarHelper::addNew('linklists.add');
+            ToolbarHelper::addNew('linklist.add');
         }
 
 		// If list is not empty and user can edit create action menu
@@ -92,16 +92,16 @@ protected function addToolbar()
             }
 
             // Add a batch button to change properties for multiple entries
-            if (
-                $user->authorise('core.create', 'com_linklistm')
-                && $user->authorise('core.edit', 'com_linklistm')
-                && $user->authorise('core.edit.state', 'com_linklistm')
-            ) {
-                $childBar->popupButton('batch')
-                    ->text('JTOOLBAR_BATCH')
-                    ->selector('collapseModal')
-                    ->listCheck(true);
-            }
+            // if (
+            //     $user->authorise('core.create', 'com_linklistm')
+            //     && $user->authorise('core.edit', 'com_linklistm')
+            //     && $user->authorise('core.edit.state', 'com_linklistm')
+            // ) {
+            //     $childBar->popupButton('batch')
+            //         ->text('JTOOLBAR_BATCH')
+            //         ->selector('collapseModal')
+            //         ->listCheck(true);
+            // }
         }
 
 		// Show "Empty Trash" button if viewing trashed items and user has delete permission.
@@ -113,9 +113,9 @@ protected function addToolbar()
         }
 
 		// Show Options button if user has access rights.
-        if ($user->authorise('core.admin', 'com_linklistm') || $user->authorise('core.options', 'com_weblinks')) {
-            ToolbarHelper::preferences('com_linklistm');
-        }
+        // if ($user->authorise('core.admin', 'com_linklistm') || $user->authorise('core.options', 'com_weblinks')) {
+        //     ToolbarHelper::preferences('com_linklistm');
+        // }
 
         ToolbarHelper::help('Components_Linklists_Links');
     }

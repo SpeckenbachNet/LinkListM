@@ -108,20 +108,22 @@ if ($saveOrder && !empty($this->items)) {
                             <td>
                                 <div>
                                     <?php if ($item->checked_out) : ?>
-                                        <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'weblinks.', $canCheckin); ?>
+                                        <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'linklists.', $canCheckin); ?>
                                     <?php endif; ?>
-                                        <?php if ($canEdit || $canEditOwn) : ?>
-                                            <a href="<?php echo Route::_('index.php?option=com_linklistm&task=linklist.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
-                                                <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
-                                            </a>
-                                        <?php else : ?>
-                                            <?php echo $this->escape($item->title); ?>
-                                        <?php endif; ?>
+
+                                    <?php if ($canEdit || $canEditOwn) : ?>
+                                        <a href="<?php echo Route::_('index.php?option=com_linklistm&task=linklist.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                                            <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
+                                        </a>
+                                    <?php else : ?>
+                                        <?php echo $this->escape($item->title); ?>
+                                    <?php endif; ?>
 
                                     <div class="small">
                                         <?php echo Text::_('JFIELD_ALIAS_LABEL'); ?>:
                                         <?php echo $this->escape($item->alias); ?>
                                     </div>
+
                                     <div class="small text-muted">
                                         <?php echo htmlspecialchars($item->url, ENT_QUOTES, 'UTF-8'); ?>
                                     </div>

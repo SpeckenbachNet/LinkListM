@@ -1,15 +1,16 @@
 <?php
+
 namespace SpeckenbachNet\Component\LinkListM\Site\Controller;
 
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 
-class DisplayController extends BaseController {
-
+class DisplayController extends BaseController
+{
+    // Use parent controller's display method with given parameters
     public function display($cachable = false, $urlparams = array())
     {
-        $view = $this->getView('linklist', 'html');
-        $view->display();
+        return parent::display($cachable, $urlparams);
     }
 }

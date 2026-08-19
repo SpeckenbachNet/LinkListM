@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout
+        title="COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_TITLE"
+        option="com_linklistm_linklists_view_default_option"
+    >
+        <help
+            key="Menus_Menu_Item_Linklist_Linklists"
+        />
+        <message>
+            <![CDATA[COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_DESC]]>
+        </message>
+    </layout>
+
+    <fields name="request">
+        <fieldset name="request">
+
+            <field
+                name="category_id"
+                type="category"
+                label="JCATEGORY"
+                extension="com_linklistm"
+                default=""
+            >
+                <option value="">JALL</option>
+            </field>
+
+            <field
+                name="include_subcategories"
+                type="radio"
+                label="COM_LINKLISTM_FIELD_INCLUDE_SUBCATEGORIES"
+                default="0"
+                layout="joomla.form.field.radio.switcher"
+            >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                name="ordering"
+                type="list"
+                label="JGLOBAL_SORT_BY"
+                default="ordering"
+            >
+                <option value="ordering">JGRID_HEADING_ORDERING</option>
+                <option value="title">JGLOBAL_TITLE</option>
+                <option value="category">JCATEGORY</option>
+            </field>
+
+            <field
+                name="direction"
+                type="list"
+                label="JGRID_HEADING_ORDERING"
+                default="ASC"
+            >
+                <option value="ASC">JGLOBAL_ORDER_ASCENDING</option>
+                <option value="DESC">JGLOBAL_ORDER_DESCENDING</option>
+            </field>
+
+            <field
+                name="show_description"
+                type="radio"
+                label="COM_LINKLISTM_FIELD_SHOW_DESCRIPTION"
+                default="1"
+                layout="joomla.form.field.radio.switcher"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+
+        </fieldset>
+    </fields>
+</metadata>
