@@ -18,7 +18,7 @@ class LinklistsModel extends ListModel
         $direction = $this->getState('direction', 'ASC');
 
         $query->select(
-            'a.id, a.title, a.url, a.description, a.catid, a.access, a.state, c.title AS category_title'
+            'a.id, a.title, a.url, a.description, a.catid, a.access, a.state, c.title AS category_title, c.parent_id, c.level, c.lft, c.rgt'
         )
             ->from($db->quoteName('#__linklistm_links', 'a'))
             ->leftJoin(
@@ -40,24 +40,49 @@ class LinklistsModel extends ListModel
         }
 
         // Filter by selected category
-        $$categoryId = $this->getState('filter.category_id');
+        // $categoryId = $this->getState('filter.category_id');
+
+        // if (is_numeric($categoryId)) {
+        //     $categoryIds = [(int) $categoryId];
+
+    //         if ($this->getState('include_subcategories')) {
+    //              $options = [
+    //     'table'      => '#__linklistm_links',
+    //     'extension'  => 'com_linklistm',
+    //     'field'      => 'catid',
+    //     'key'        => 'id',
+    //     'statefield' => 'state',
+    // ];
+
+    // $categories = Categories::getInstance('linklistm', $options);
+    // $category = $categories->get($categoryId);
+
+    //             foreach ($category->getChildren(true) as $child) {
+    //                 $categoryIds[] = (int) $child->id;
+    //             }
+    //         }
+
+    // Filter by selected category
+        $categoryId = $this->getState('filter.category_id');
 
         if (is_numeric($categoryId)) {
-            $categoryIds = [(int) $categoryId];
-
             if ($this->getState('include_subcategories')) {
-                $categories = Categories::getInstance('linklistm');
-                $category = $categories->get($categoryId);
+                $query->where(
+                    $db->quoteName('c.lft') . ' >= ' .
+                    '(SELECT lft FROM ' . $db->quoteName('#__categories') .
+                    ' WHERE id = ' . (int) $categoryId . ')'
+                );
 
-                foreach ($category->getChildren(true) as $child) {
-                    $categoryIds[] = (int) $child->id;
-                }
+                $query->where(
+                    $db->quoteName('c.rgt') . ' <= ' .
+                    '(SELECT rgt FROM ' . $db->quoteName('#__categories') .
+                    ' WHERE id = ' . (int) $categoryId . ')'
+                );
+            } else {
+                $query->where(
+                    $db->quoteName('a.catid') . ' = ' . (int) $categoryId
+                );
             }
-
-            $query->whereIn(
-                $db->quoteName('a.catid'),
-                $categoryIds
-            );
         }
 
         // Apply menu item ordering
@@ -66,16 +91,14 @@ class LinklistsModel extends ListModel
                 $orderColumn = 'a.title';
                 break;
 
-            case 'category':
-                $orderColumn = 'c.title';
-                break;
-
             default:
                 $orderColumn = 'a.ordering';
         }
 
         $query->order(
-            $db->quoteName($orderColumn) . ' ' . ($direction === 'DESC' ? 'DESC' : 'ASC')
+            'c.lft ASC, ' .
+            $db->quoteName($orderColumn) . ' ' . 
+            ($direction === 'DESC' ? 'DESC' : 'ASC')
         );
 
         return $query;
@@ -86,11 +109,33 @@ class LinklistsModel extends ListModel
         $app = Factory::getApplication();
         $input = $app->getInput();
 
-        $this->setState('filter.category_id', $input->get('category_id', '', 'cmd'));
-        $this->setState('include_subcategories', $input->get('include_subcategories', 0, 'int'));
-        $this->setState('ordering', $input->get('ordering', 'ordering', 'cmd'));
-        $this->setState('direction', $input->get('direction', 'ASC', 'cmd'));
-        $this->setState('show_description', $input->get('show_description', 1, 'int'));
+        $this->setState(
+            'filter.category_id',
+            $input->get('category_id', '', 'cmd')
+        );
+
+        $menuItem = $app->getMenu()->getActive();
+        $params = $menuItem->getParams();
+
+        $this->setState(
+            'include_subcategories',
+            $params->get('include_subcategories', 0)
+        );
+
+        $this->setState(
+            'ordering',
+            $params->get('ordering', 'ordering')
+        );
+
+        $this->setState(
+            'direction',
+            $params->get('direction', 'ASC')
+        );
+
+        $this->setState(
+            'show_description',
+            $params->get('show_description', 1)
+        );
 
         parent::populateState($ordering, $direction);
     }

@@ -52,5 +52,21 @@ class LinklistModel extends AdminModel
         }
 
         $table->alias = \Joomla\CMS\Application\ApplicationHelper::stringURLSafe($table->alias);
+
+        if (empty($table->id)) {
+            if (empty($table->ordering)) {
+                $db = $this->getDatabase();
+
+                $query = $db->getQuery(true)
+                    ->select('MAX(ordering)')
+                    ->from($db->quoteName('#__linklistm_links'));
+
+                $db->setQuery($query);
+
+                $max = $db->loadResult();
+
+                $table->ordering = $max + 1;
+            }
+        }
     }
 }

@@ -4,9 +4,7 @@
         title="COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_TITLE"
         option="com_linklistm_linklists_view_default_option"
     >
-        <help
-            key="Menus_Menu_Item_Linklist_Linklists"
-        />
+        <help key="Menus_Menu_Item_Linklist_Linklists" />
         <message>
             <![CDATA[COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_DESC]]>
         </message>
@@ -24,6 +22,12 @@
             >
                 <option value="">JALL</option>
             </field>
+
+        </fieldset>
+    </fields>
+
+    <fields name="params">
+        <fieldset name="basic">
 
             <field
                 name="include_subcategories"
@@ -44,7 +48,6 @@
             >
                 <option value="ordering">JGRID_HEADING_ORDERING</option>
                 <option value="title">JGLOBAL_TITLE</option>
-                <option value="category">JCATEGORY</option>
             </field>
 
             <field
@@ -61,11 +64,11 @@
                 name="show_description"
                 type="radio"
                 label="COM_LINKLISTM_FIELD_SHOW_DESCRIPTION"
-                default="1"
+                default="0"
                 layout="joomla.form.field.radio.switcher"
             >
-                <option value="1">JYES</option>
                 <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
 
         </fieldset>
