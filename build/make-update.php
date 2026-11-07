@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Writes the files for the update server into build/dist/linklistm/:
+ * Writes the files for a GitHub release into build/dist/linklistm/:
  *
  *   updates.xml                  polled by Joomla (System → Updates)
  *   changelog.xml                shown in Joomla's update / extension manager
@@ -15,7 +15,10 @@
  * security release.
  */
 
-const BASE_URL     = 'https://updates.speckenbach.net/linklistm/';
+// GitHub releases: "latest" redirects to the newest published release (no draft, no pre-release).
+// Tags are always "v" + version (vX.Y.Z).
+const REPO_URL     = 'https://github.com/SpeckenbachNet/LinkListM';
+const LATEST_URL   = REPO_URL . '/releases/latest/download/';
 const ELEMENT      = 'com_linklistm';
 const DISPLAY_NAME = 'LinkListM';
 const PHP_MINIMUM  = '8.3';
@@ -61,6 +64,8 @@ foreach (['en-GB', 'de-DE'] as $tag) {
 $e        = static fn (string $value): string => htmlspecialchars($value, ENT_XML1 | ENT_QUOTES, 'UTF-8');
 $security = max(0, min(4, (int) ($current['security'] ?? 0)));
 $zipName  = ELEMENT . '-' . $version . '.zip';
+$tag      = 'v' . $version;
+$tagUrl   = REPO_URL . '/releases/download/' . $tag . '/';
 $dist     = $root . '/build/dist/linklistm';
 
 if (!is_dir($dist) && !mkdir($dist, 0777, true)) {
@@ -81,10 +86,10 @@ $updates = '<?xml version="1.0" encoding="utf-8"?>' . "\n"
     . "        <type>component</type>\n"
     . "        <client>administrator</client>\n"
     . '        <version>' . $e($version) . "</version>\n"
-    . '        <infourl title="' . $e(DISPLAY_NAME) . '">' . $e((string) $manifest->authorUrl) . "</infourl>\n"
-    . '        <changelogurl>' . BASE_URL . "changelog.xml</changelogurl>\n"
+    . '        <infourl title="' . $e(DISPLAY_NAME) . '">' . $e(REPO_URL . '/releases/tag/' . $tag) . "</infourl>\n"
+    . '        <changelogurl>' . LATEST_URL . "changelog.xml</changelogurl>\n"
     . "        <downloads>\n"
-    . '            <downloadurl type="full" format="zip">' . BASE_URL . $e($zipName) . "</downloadurl>\n"
+    . '            <downloadurl type="full" format="zip">' . $e($tagUrl . $zipName) . "</downloadurl>\n"
     . "        </downloads>\n"
     . '        <sha512>' . hash_file('sha512', $zip) . "</sha512>\n"
     . ($security > 0 ? '        <security>' . $security . "</security>\n" : '')
@@ -135,4 +140,8 @@ foreach (['updates.xml', 'changelog.xml', $zipName] as $file) {
     echo "    $file\n";
 }
 
-echo "    Upload all three to " . BASE_URL . " to offer this version as an update.\n";
+echo "\n==> To publish $version as an update:\n"
+    . "    1. git push origin main --tags        (tag $tag must exist on GitHub)\n"
+    . "    2. " . REPO_URL . "/releases/new  ->  choose tag $tag\n"
+    . "    3. drag the three files above into the release\n"
+    . "    4. \"Publish release\" (no pre-release, so it becomes \"Latest\")\n";

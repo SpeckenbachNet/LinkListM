@@ -7,9 +7,9 @@
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <description>COM_LINKLISTM_DESCRIPTION</description>
-    <changelogurl>https://updates.speckenbach.net/linklistm/changelog.xml</changelogurl>
+    <changelogurl>https://github.com/SpeckenbachNet/LinkListM/releases/latest/download/changelog.xml</changelogurl>
 
     <namespace path="src">SpeckenbachNet\Component\LinkListM</namespace>
 
@@ -82,7 +82,7 @@
     </administration>
 
     <updateservers>
-        <server type="extension" priority="1" name="LinkListM">https://updates.speckenbach.net/linklistm/updates.xml</server>
+        <server type="extension" priority="1" name="LinkListM">https://github.com/SpeckenbachNet/LinkListM/releases/latest/download/updates.xml</server>
     </updateservers>
 
 </extension>

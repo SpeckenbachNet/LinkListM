@@ -31,7 +31,10 @@ $renderLinks = function (array $items): void {
                     <?php endif; ?>
                 </a>
                 <?php if ($this->showDomain && $item->domain !== '') : ?>
-                    <div class="linklistm-link__domain"><?php echo $this->escape($item->domain); ?></div>
+                    <div class="linklistm-link__domain">
+                        <span class="icon-globe" aria-hidden="true"></span>
+                        <?php echo $this->escape($item->domain); ?>
+                    </div>
                 <?php endif; ?>
                 <?php if ($this->showDescription && strip_tags($description) !== '') : ?>
                     <div class="linklistm-link__desc"><?php echo $description; ?></div>

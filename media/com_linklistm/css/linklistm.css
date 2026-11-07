@@ -100,11 +100,16 @@
 
 .linklistm-link__domain {
     color: var(--llm-muted);
-    font-size: .85rem;
+    font-size: .8rem;
+}
+
+.linklistm-link__domain .icon-globe {
+    margin-right: .25em;
+    font-size: .9em;
 }
 
 .linklistm-link__desc {
-    margin-top: .25rem;
+    margin-top: .5rem;
     color: var(--llm-muted);
     font-size: .9rem;
 }

@@ -1,5 +1,19 @@
 [
     {
+        "version": "0.3.1",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "Frontend: the domain below the link title is smaller and has a globe icon, so it stands out from the description",
+                "Updates now come from GitHub releases (github.com/SpeckenbachNet/LinkListM)"
+            ],
+            "de-DE": [
+                "Frontend: Die Domain unter dem Linktitel ist kleiner und hat ein Globus-Symbol, damit sie sich von der Beschreibung abhebt",
+                "Updates kommen jetzt aus den GitHub-Releases (github.com/SpeckenbachNet/LinkListM)"
+            ]
+        }
+    },
+    {
         "version": "0.3.0",
         "date": "2026-11-07",
         "changes": {
