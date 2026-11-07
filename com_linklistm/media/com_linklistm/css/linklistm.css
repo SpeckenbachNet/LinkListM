@@ -146,7 +146,7 @@
     }
 }
 
-@container (min-width: 60rem) {
+@container (min-width: 56rem) {
     .linklistm--tiles.linklistm--cols-3 .linklistm-blocks {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }

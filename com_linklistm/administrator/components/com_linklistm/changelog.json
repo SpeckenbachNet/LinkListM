@@ -1,5 +1,21 @@
 [
     {
+        "version": "1.0.0",
+        "date": "2026-11-08",
+        "changes": {
+            "en-GB": [
+                "First stable release",
+                "Tiles with 3 columns now also inside articles and Custom modules (from a content width of 896 px instead of 960 px)",
+                "Backend menu stays open after saving a category; the main entry LinkListM opens the overview"
+            ],
+            "de-DE": [
+                "Erste stabile Version",
+                "Kacheln mit 3 Spalten jetzt auch in Beiträgen und Modulen „Eigene Inhalte“ (ab 896 px Inhaltsbreite statt 960 px)",
+                "Das Backend-Menü bleibt nach dem Speichern einer Kategorie geöffnet; der Hauptpunkt LinkListM öffnet die Übersicht"
+            ]
+        }
+    },
+    {
         "version": "0.6.2",
         "date": "2026-11-07",
         "changes": {

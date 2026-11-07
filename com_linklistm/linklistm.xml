@@ -5,9 +5,9 @@
     <author>Michael Speckenbach</author>
     <authorEmail>software@speckenbach.net</authorEmail>
     <authorUrl>https://software.speckenbach.net</authorUrl>
-    <creationDate>2026-11-07</creationDate>
+    <creationDate>2026-11-08</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.6.2</version>
+    <version>1.0.0</version>
     <description>COM_LINKLISTM_DESCRIPTION</description>
 
     <namespace path="src">SpeckenbachNet\Component\LinkListM</namespace>
@@ -52,12 +52,12 @@
 
     <administration>
 
-        <menu link="option=com_linklistm">COM_LINKLISTM_MENU_LINKLIST</menu>
+        <menu link="option=com_linklistm&amp;view=dashboard">COM_LINKLISTM_MENU_LINKLIST</menu>
 
         <submenu>
             <menu view="dashboard">COM_LINKLISTM_MENU_DASHBOARD</menu>
             <menu link="option=com_linklistm&amp;view=linklists">COM_LINKLISTM_MENU_LINKS</menu>
-            <menu link="option=com_categories&amp;extension=com_linklistm">COM_LINKLISTM_MENU_CATEGORIES</menu>
+            <menu link="option=com_categories&amp;view=categories&amp;extension=com_linklistm">COM_LINKLISTM_MENU_CATEGORIES</menu>
         </submenu>
 
         <files folder="administrator/components/com_linklistm">

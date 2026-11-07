@@ -4,9 +4,9 @@
     <author>Michael Speckenbach</author>
     <authorEmail>software@speckenbach.net</authorEmail>
     <authorUrl>https://software.speckenbach.net</authorUrl>
-    <creationDate>2026-11-07</creationDate>
+    <creationDate>2026-11-08</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.6.2</version>
+    <version>1.0.0</version>
     <description>PLG_EDITORS-XTD_LINKLISTM_XML_DESCRIPTION</description>
 
     <namespace path="src">SpeckenbachNet\Plugin\EditorsXtd\LinkListM</namespace>
