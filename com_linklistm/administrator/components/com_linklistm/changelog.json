@@ -1,5 +1,17 @@
 [
     {
+        "version": "0.6.0",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "New editor button \"Link list\" (backend): choose categories, subcategories, list or tiles, columns, description and domain; the button inserts the matching {linklistm ...} tag at the cursor"
+            ],
+            "de-DE": [
+                "Neue Editor-Schaltfläche „Linkliste“ (Backend): Kategorien, Unterkategorien, Liste oder Kacheln, Spalten, Beschreibung und Domain auswählen; die Schaltfläche fügt den passenden Platzhalter {linklistm …} an der Cursorposition ein"
+            ]
+        }
+    },
+    {
         "version": "0.5.0",
         "date": "2026-11-07",
         "changes": {

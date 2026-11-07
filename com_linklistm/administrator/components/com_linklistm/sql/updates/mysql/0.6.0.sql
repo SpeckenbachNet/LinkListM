@@ -1,0 +1,1 @@
+-- 0.6.0: editor button. No database changes.

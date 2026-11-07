@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Builds pkg_linklistm.zip (component + content plugin) and the release files in build/dist/linklistm/.
+# Builds pkg_linklistm.zip (component, content plugin, editor button) and the release files in build/dist/linklistm/.
 #
 set -euo pipefail
 
@@ -9,13 +9,14 @@ BUILD="$ROOT/build"
 PKG_MANIFEST="$ROOT/pkg_linklistm/pkg_linklistm.xml"
 COM_MANIFEST="$ROOT/com_linklistm/linklistm.xml"
 PLG_MANIFEST="$ROOT/plg_content_linklistm/linklistm.xml"
+BTN_MANIFEST="$ROOT/plg_editors-xtd_linklistm/linklistm.xml"
 EXCLUDES=(-x "*.DS_Store" -x "__MACOSX/*")
 
 version() { sed -n 's:.*<version>\(.*\)</version>.*:\1:p' "$1" | head -1; }
 VERSION="$(version "$PKG_MANIFEST")"
 
 # Package, component and plugin share one version number
-for m in "$COM_MANIFEST" "$PLG_MANIFEST"; do
+for m in "$COM_MANIFEST" "$PLG_MANIFEST" "$BTN_MANIFEST"; do
     if [ "$(version "$m")" != "$VERSION" ]; then
         echo "Version mismatch: $m has $(version "$m"), package has $VERSION" >&2
         exit 1
@@ -41,6 +42,9 @@ echo "==> Building com_linklistm.zip"
 
 echo "==> Building plg_content_linklistm.zip"
 (cd "$ROOT/plg_content_linklistm" && zip -r -q -X "$TMP/packages/plg_content_linklistm.zip" . "${EXCLUDES[@]}")
+
+echo "==> Building plg_editors-xtd_linklistm.zip"
+(cd "$ROOT/plg_editors-xtd_linklistm" && zip -r -q -X "$TMP/packages/plg_editors-xtd_linklistm.zip" . "${EXCLUDES[@]}")
 
 echo "==> Building pkg_linklistm.zip ($VERSION)"
 cp "$PKG_MANIFEST" "$ROOT/pkg_linklistm/script.php" "$TMP/"

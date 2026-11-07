@@ -7,7 +7,7 @@
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
     <description>COM_LINKLISTM_DESCRIPTION</description>
 
     <namespace path="src">SpeckenbachNet\Component\LinkListM</namespace>
@@ -20,6 +20,7 @@
 
     <media destination="com_linklistm" folder="media/com_linklistm">
         <folder>css</folder>
+        <folder>js</folder>
     </media>
 
     <languages folder="language">

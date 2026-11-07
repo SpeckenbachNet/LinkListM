@@ -7,7 +7,7 @@
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
     <description>PKG_LINKLISTM_XML_DESCRIPTION</description>
     <changelogurl>https://github.com/SpeckenbachNet/LinkListM/releases/latest/download/changelog.xml</changelogurl>
     <blockChildUninstall>true</blockChildUninstall>
@@ -17,6 +17,7 @@
     <files folder="packages">
         <file type="component" id="com_linklistm">com_linklistm.zip</file>
         <file type="plugin" id="linklistm" group="content">plg_content_linklistm.zip</file>
+        <file type="plugin" id="linklistm" group="editors-xtd">plg_editors-xtd_linklistm.zip</file>
     </files>
 
     <languages folder="language">
