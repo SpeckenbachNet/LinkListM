@@ -36,7 +36,7 @@
         <field
             name="description"
             type="editor"
-            label="COM_LINKLISTM_DESCRIPTION"
+            label="COM_LINKLISTM_FIELD_DESCRIPTION"
             filter="raw"
             buttons="true"
         />
@@ -67,6 +67,33 @@
             type="accesslevel"
             label="JFIELD_ACCESS_LABEL"
             default="1"
+        />
+
+        <field
+            name="language"
+            type="contentlanguage"
+            label="JFIELD_LANGUAGE_LABEL"
+            default="*"
+        >
+            <option value="*">JALL</option>
+        </field>
+
+        <field
+            name="publish_up"
+            type="calendar"
+            label="COM_LINKLISTM_FIELD_PUBLISH_UP"
+            translateformat="true"
+            showtime="true"
+            filter="user_utc"
+        />
+
+        <field
+            name="publish_down"
+            type="calendar"
+            label="COM_LINKLISTM_FIELD_PUBLISH_DOWN"
+            translateformat="true"
+            showtime="true"
+            filter="user_utc"
         />
     </fieldset>
 </form>

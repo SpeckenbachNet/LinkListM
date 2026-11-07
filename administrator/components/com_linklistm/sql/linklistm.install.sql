@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS `#__linklistm_links` (
     `modified_by` INT UNSIGNED NOT NULL DEFAULT 0,
     `publish_up` DATETIME NULL,
     `publish_down` DATETIME NULL,
+    `checked_out` INT UNSIGNED NULL,
+    `checked_out_time` DATETIME NULL,
 
     PRIMARY KEY (`id`),
     KEY `idx_catid` (`catid`),

@@ -2,38 +2,32 @@
 <metadata>
     <layout
         title="COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_TITLE"
-        option="com_linklistm_linklists_view_default_option"
+        option="COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_OPTION"
     >
-        <help key="Menus_Menu_Item_Linklist_Linklists" />
         <message>
             <![CDATA[COM_LINKLISTM_LINKLISTS_VIEW_DEFAULT_DESC]]>
         </message>
     </layout>
 
-    <fields name="request">
-        <fieldset name="request">
-
-            <field
-                name="category_id"
-                type="category"
-                label="JCATEGORY"
-                extension="com_linklistm"
-                default=""
-            >
-                <option value="">JALL</option>
-            </field>
-
-        </fieldset>
-    </fields>
-
     <fields name="params">
         <fieldset name="basic">
+
+            <field
+                name="catids"
+                type="category"
+                label="COM_LINKLISTM_FIELD_CATEGORIES"
+                description="COM_LINKLISTM_FIELD_CATEGORIES_DESC"
+                extension="com_linklistm"
+                multiple="true"
+                layout="joomla.form.field.list-fancy-select"
+                filter="intarray"
+            />
 
             <field
                 name="include_subcategories"
                 type="radio"
                 label="COM_LINKLISTM_FIELD_INCLUDE_SUBCATEGORIES"
-                default="0"
+                default="1"
                 layout="joomla.form.field.radio.switcher"
             >
                 <option value="0">JNO</option>
@@ -53,7 +47,7 @@
             <field
                 name="direction"
                 type="list"
-                label="JGRID_HEADING_ORDERING"
+                label="COM_LINKLISTM_FIELD_DIRECTION"
                 default="ASC"
             >
                 <option value="ASC">JGLOBAL_ORDER_ASCENDING</option>
@@ -64,7 +58,30 @@
                 name="show_description"
                 type="radio"
                 label="COM_LINKLISTM_FIELD_SHOW_DESCRIPTION"
-                default="0"
+                default="1"
+                layout="joomla.form.field.radio.switcher"
+            >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                name="show_domain"
+                type="radio"
+                label="COM_LINKLISTM_FIELD_SHOW_DOMAIN"
+                default="1"
+                layout="joomla.form.field.radio.switcher"
+            >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                name="new_window"
+                type="radio"
+                label="COM_LINKLISTM_FIELD_NEW_WINDOW"
+                description="COM_LINKLISTM_FIELD_NEW_WINDOW_DESC"
+                default="1"
                 layout="joomla.form.field.radio.switcher"
             >
                 <option value="0">JNO</option>

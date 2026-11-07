@@ -1,2 +1,4 @@
 .vscode/sftp.json
 .DS_Store
+build/dist/
+administrator/components/com_linklistm/linklistm.xml

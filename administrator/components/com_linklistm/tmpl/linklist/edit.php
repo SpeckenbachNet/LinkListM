@@ -38,6 +38,11 @@ $input->set('hidemainmenu', true);
         </div>
         <div class="col-md-3">
             <?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+            <fieldset class="form-vertical">
+                <?php echo $this->form->renderField('publish_up'); ?>
+                <?php echo $this->form->renderField('publish_down'); ?>
+            </fieldset>
+        </div>
         </div>
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
 

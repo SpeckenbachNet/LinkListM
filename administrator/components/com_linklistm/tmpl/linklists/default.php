@@ -148,6 +148,8 @@ if ($saveOrder && !empty($this->items)) {
                 </tbody>
             </table>
         </div>
+
+        <?php echo $this->pagination->getListFooter(); ?>
     <?php endif; ?>
 
     <input type="hidden" name="task" value="">

@@ -37,7 +37,7 @@ class LinklistsModel extends ListModel
         $db = $this->getDatabase();
         $query = $db->getQuery(true);
             
-        $query->select('a.id, a.alias, a.title, a.url, a.catid, a.access, a.state, a.checked_out, a.checked_out_time, c.title AS category_title, v.title AS access_level')
+        $query->select('a.id, a.alias, a.title, a.url, a.catid, a.access, a.state, a.ordering, a.created_by, a.publish_up, a.publish_down, a.checked_out, a.checked_out_time, c.title AS category_title, v.title AS access_level, uc.name AS editor')
             ->from($db->quoteName('#__linklistm_links', 'a'))
             ->leftJoin(
                 $db->quoteName('#__categories', 'c')

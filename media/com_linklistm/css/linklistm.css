@@ -1,0 +1,118 @@
+/* LinkListM - front-end link list
+   Colors come from the template (--site-* of the own template, otherwise Bootstrap/Cassiopeia).
+   Override: copy to media/templates/site/<template>/css/com_linklistm/linklistm.css */
+
+.linklistm {
+    --llm-accent:     var(--site-primary, var(--cassiopeia-color-primary, #0d6efd));
+    --llm-on-accent:  #fff;
+    --llm-border:     var(--site-border, var(--bs-border-color, #dee2e6));
+    --llm-bg:         var(--site-background, var(--bs-body-bg, #fff));
+    --llm-sub-bg:     var(--site-section, var(--bs-tertiary-bg, #f4f4f4));
+    --llm-muted:      var(--site-text-light, var(--bs-secondary-color, #6c757d));
+    --llm-radius:     var(--site-radius, .5rem);
+}
+
+/* Level 1: one block per top category */
+.linklistm-block {
+    margin: 0 0 2rem;
+    background: var(--llm-bg);
+    border: 1px solid var(--llm-border);
+    border-radius: var(--llm-radius);
+    overflow: hidden;
+}
+
+.linklistm-block__title {
+    margin: 0;
+    padding: .7rem 1rem;
+    background: var(--llm-accent);
+    color: var(--llm-on-accent);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Level 2: sub category with thick accent bar and tinted background */
+.linklistm-section__title {
+    margin: 0;
+    padding: .55rem 1rem .55rem .85rem;
+    background: var(--llm-sub-bg);
+    border-top: 1px solid var(--llm-border);
+    border-bottom: 1px solid var(--llm-border);
+    border-left: 4px solid var(--llm-accent);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.linklistm-section--level2 {
+    margin-top: 1rem;
+}
+
+/* Level 3 and deeper: smaller heading, thin bar, path of parent categories */
+.linklistm-section--level3 {
+    margin-top: .5rem;
+}
+
+.linklistm-section--level3 .linklistm-section__title {
+    padding-left: .95rem;
+    border-left-width: 2px;
+    font-size: .95rem;
+    font-weight: 600;
+}
+
+.linklistm-section__path {
+    color: var(--llm-muted);
+    font-weight: 400;
+}
+
+/* First section directly under the block title needs no extra space */
+.linklistm-block__title + .linklistm-section {
+    margin-top: 0;
+}
+
+.linklistm-block__title + .linklistm-section .linklistm-section__title {
+    border-top: 0;
+}
+
+/* Links: plain rows with thin separators */
+.linklistm-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.linklistm-link {
+    padding: .6rem 1rem;
+}
+
+.linklistm-link + .linklistm-link {
+    border-top: 1px solid var(--llm-border);
+}
+
+.linklistm-link__title {
+    font-weight: 600;
+}
+
+.linklistm-link__ext {
+    font-size: .8em;
+    margin-left: .15em;
+}
+
+.linklistm-link__domain {
+    color: var(--llm-muted);
+    font-size: .85rem;
+}
+
+.linklistm-link__desc {
+    margin-top: .25rem;
+    color: var(--llm-muted);
+    font-size: .9rem;
+}
+
+.linklistm-link__desc > :last-child {
+    margin-bottom: 0;
+}
+
+.linklistm-empty {
+    color: var(--llm-muted);
+}

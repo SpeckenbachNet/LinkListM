@@ -4,102 +4,90 @@ namespace SpeckenbachNet\Component\LinkListM\Site\Model;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\MVC\Model\ListModel;
-use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 
 class LinklistsModel extends ListModel
 {
-    protected function getListQuery()
+    /**
+     * Cached list of published, accessible categories.
+     *
+     * @var object[]|null
+     */
+    protected $categories = null;
+
+    /**
+     * Returns all published categories of com_linklistm the current user may see, ordered by tree.
+     * Parent chain checks are done in CategoryTree.
+     */
+    public function getCategories(): array
     {
-        $db = $this->getDatabase();
-        $query = $db->getQuery(true);
-        $ordering = $this->getState('ordering', 'ordering');
-        $direction = $this->getState('direction', 'ASC');
+        if ($this->categories !== null) {
+            return $this->categories;
+        }
 
-        $query->select(
-            'a.id, a.title, a.url, a.description, a.catid, a.access, a.state, c.title AS category_title, c.parent_id, c.level, c.lft, c.rgt'
-        )
-            ->from($db->quoteName('#__linklistm_links', 'a'))
-            ->leftJoin(
-                $db->quoteName('#__categories', 'c')
-                . ' ON c.id = a.catid'
-        );
+        $db    = $this->getDatabase();
+        $user  = $this->getCurrentUser();
+        $query = $db->getQuery(true)
+            ->select($db->quoteName(['id', 'parent_id', 'title', 'level', 'lft', 'rgt']))
+            ->from($db->quoteName('#__categories'))
+            ->where($db->quoteName('extension') . ' = ' . $db->quote('com_linklistm'))
+            ->where($db->quoteName('published') . ' = 1')
+            ->whereIn($db->quoteName('access'), $user->getAuthorisedViewLevels())
+            ->order($db->quoteName('lft') . ' ASC');
 
-        // Only show published links
-        $query->where($db->quoteName('a.state') . ' = 1');
-
-        // Apply Joomla access level restrictions
-        $user = $this->getCurrentUser();
-
-        if (!$user->authorise('core.admin')) {
+        if (Multilanguage::isEnabled()) {
             $query->whereIn(
-                $db->quoteName('a.access'),
-                $user->getAuthorisedViewLevels()
+                $db->quoteName('language'),
+                [Factory::getApplication()->getLanguage()->getTag(), '*'],
+                ParameterType::STRING
             );
         }
 
-        // Filter by selected category
-        // $categoryId = $this->getState('filter.category_id');
+        $this->categories = $db->setQuery($query)->loadObjectList();
 
-        // if (is_numeric($categoryId)) {
-        //     $categoryIds = [(int) $categoryId];
+        return $this->categories;
+    }
 
-    //         if ($this->getState('include_subcategories')) {
-    //              $options = [
-    //     'table'      => '#__linklistm_links',
-    //     'extension'  => 'com_linklistm',
-    //     'field'      => 'catid',
-    //     'key'        => 'id',
-    //     'statefield' => 'state',
-    // ];
+    protected function getListQuery()
+    {
+        $db    = $this->getDatabase();
+        $user  = $this->getCurrentUser();
+        $now   = Factory::getDate()->toSql();
+        $query = $db->getQuery(true);
 
-    // $categories = Categories::getInstance('linklistm', $options);
-    // $category = $categories->get($categoryId);
+        $query->select($db->quoteName(['a.id', 'a.title', 'a.url', 'a.description', 'a.catid']))
+            ->from($db->quoteName('#__linklistm_links', 'a'))
+            ->where($db->quoteName('a.state') . ' = 1')
+            ->whereIn($db->quoteName('a.access'), $user->getAuthorisedViewLevels())
+            ->where('(' . $db->quoteName('a.publish_up') . ' IS NULL OR ' . $db->quoteName('a.publish_up') . ' <= :now1)')
+            ->where('(' . $db->quoteName('a.publish_down') . ' IS NULL OR ' . $db->quoteName('a.publish_down') . ' > :now2)')
+            ->bind(':now1', $now)
+            ->bind(':now2', $now);
 
-    //             foreach ($category->getChildren(true) as $child) {
-    //                 $categoryIds[] = (int) $child->id;
-    //             }
-    //         }
-
-    // Filter by selected category
-        $categoryId = $this->getState('filter.category_id');
-
-        if (is_numeric($categoryId)) {
-            if ($this->getState('include_subcategories')) {
-                $query->where(
-                    $db->quoteName('c.lft') . ' >= ' .
-                    '(SELECT lft FROM ' . $db->quoteName('#__categories') .
-                    ' WHERE id = ' . (int) $categoryId . ')'
-                );
-
-                $query->where(
-                    $db->quoteName('c.rgt') . ' <= ' .
-                    '(SELECT rgt FROM ' . $db->quoteName('#__categories') .
-                    ' WHERE id = ' . (int) $categoryId . ')'
-                );
-            } else {
-                $query->where(
-                    $db->quoteName('a.catid') . ' = ' . (int) $categoryId
-                );
-            }
+        if (Multilanguage::isEnabled()) {
+            $query->whereIn(
+                $db->quoteName('a.language'),
+                [Factory::getApplication()->getLanguage()->getTag(), '*'],
+                ParameterType::STRING
+            );
         }
 
-        // Apply menu item ordering
-        switch ($ordering) {
-            case 'title':
-                $orderColumn = 'a.title';
-                break;
+        // Only links in visible categories; selection by menu item is done in CategoryTree
+        $catIds = array_map(fn($c) => (int) $c->id, $this->getCategories());
 
-            default:
-                $orderColumn = 'a.ordering';
+        if ($catIds === []) {
+            $query->where('1 = 0');
+        } else {
+            $query->whereIn($db->quoteName('a.catid'), $catIds);
         }
 
-        $query->order(
-            'c.lft ASC, ' .
-            $db->quoteName($orderColumn) . ' ' . 
-            ($direction === 'DESC' ? 'DESC' : 'ASC')
-        );
+        $orderColumn = $this->getState('linklist.ordering') === 'title' ? 'a.title' : 'a.ordering';
+        $direction   = $this->getState('linklist.direction') === 'DESC' ? 'DESC' : 'ASC';
+
+        $query->order($db->quoteName($orderColumn) . ' ' . $direction);
 
         return $query;
     }
@@ -107,36 +95,28 @@ class LinklistsModel extends ListModel
     protected function populateState($ordering = null, $direction = null)
     {
         $app = Factory::getApplication();
-        $input = $app->getInput();
-
-        $this->setState(
-            'filter.category_id',
-            $input->get('category_id', '', 'cmd')
-        );
-
-        $menuItem = $app->getMenu()->getActive();
-        $params = $menuItem->getParams();
-
-        $this->setState(
-            'include_subcategories',
-            $params->get('include_subcategories', 0)
-        );
-
-        $this->setState(
-            'ordering',
-            $params->get('ordering', 'ordering')
-        );
-
-        $this->setState(
-            'direction',
-            $params->get('direction', 'ASC')
-        );
-
-        $this->setState(
-            'show_description',
-            $params->get('show_description', 1)
-        );
 
         parent::populateState($ordering, $direction);
+
+        // Menu item params merged with component params; works without an active menu item too
+        $params = $app->getParams();
+        $this->setState('params', $params);
+
+        // Categories: new multi-select param, fallback to the old single request value (menu items from 0.1)
+        $catIds = (array) $params->get('catids', []);
+
+        if ($catIds === [] || $catIds === ['']) {
+            $legacy = $app->getInput()->getInt('category_id', 0);
+            $catIds = $legacy ? [$legacy] : [];
+        }
+
+        $this->setState('filter.category_ids', array_values(array_filter(array_map('intval', $catIds))));
+        $this->setState('filter.include_subcategories', (bool) $params->get('include_subcategories', 1));
+        $this->setState('linklist.ordering', $params->get('ordering', 'ordering'));
+        $this->setState('linklist.direction', $params->get('direction', 'ASC'));
+
+        // Show all links, no pagination
+        $this->setState('list.start', 0);
+        $this->setState('list.limit', 0);
     }
 }

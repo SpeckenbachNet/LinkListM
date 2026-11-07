@@ -1,16 +1,14 @@
 <?php
 
-namespace SpeckenbachNet\Component\LinkListM\Administrator\View\LinkLists;
+namespace SpeckenbachNet\Component\LinkListM\Administrator\View\Linklists;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\Component\Weblinks\Administrator\Model\WeblinksModel;
 
 class HtmlView extends BaseHtmlView {
 
@@ -35,10 +33,6 @@ class HtmlView extends BaseHtmlView {
             throw new GenericDataException(implode("\n", $errors), 500);
         }
 
-		// Check if list is empty
-        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
-            $this->setLayout('emptystate');
-        }
 
 		// Create Toolbar
         $this->addToolbar();
