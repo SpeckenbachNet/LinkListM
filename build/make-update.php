@@ -4,7 +4,7 @@
  * Writes the files for a GitHub release into build/dist/linklistm/:
  *
  *   updates.xml                  polled by Joomla (System → Updates)
- *   release-notes.md             English changes since the current GitHub release, for the release text
+ *   release-notes.md             text for the GitHub release: intro (README), changes since the last release, installation
  *   changelog.xml                shown in Joomla's update / extension manager
  *   pkg_linklistm-<ver>.zip     copy of the package, one file per version
  *
@@ -183,7 +183,43 @@ foreach ($entries as $entry) {
     $notes .= "\n";
 }
 
-file_put_contents($dist . '/release-notes.md', rtrim($notes) . "\n");
+// Intro: the first paragraph below the title of README.md (maintained in one place)
+$intro  = '';
+$readme = @file($root . '/README.md', FILE_IGNORE_NEW_LINES);
+
+if (\is_array($readme)) {
+    $lines   = [];
+    $started = false;
+
+    foreach ($readme as $line) {
+        if (!$started) {
+            $started = str_starts_with($line, '# ');
+            continue;
+        }
+
+        if (trim($line) === '') {
+            if ($lines !== []) {
+                break;
+            }
+
+            continue;
+        }
+
+        $lines[] = trim($line);
+    }
+
+    $intro = implode(' ', $lines);
+}
+
+$release = ($intro !== '' ? $intro . "\n\n" : '')
+    . "## What's new\n\n"
+    . rtrim($notes) . "\n\n"
+    . "## Installation\n\n"
+    . 'Download `' . $zipName . '` below and install it under **System → Install → Extensions**.' . "\n"
+    . "Existing installations get this version under **System → Update → Extensions**.\n"
+    . ($previous !== '' ? "\n**Full changes:** " . REPO_URL . '/compare/v' . $previous . '...' . $tag . "\n" : '');
+
+file_put_contents($dist . '/release-notes.md', $release);
 
 echo "==> Update server files for $version" . ($security > 0 ? " (security level $security)" : '') . " in build/dist/linklistm/:\n";
 
