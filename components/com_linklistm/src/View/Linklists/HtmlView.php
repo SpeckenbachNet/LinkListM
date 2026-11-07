@@ -29,6 +29,10 @@ class HtmlView extends BaseHtmlView
     protected $newWindow       = true;
     protected $ownHost         = '';
 
+    /** Tiles layout: top categories side by side */
+    protected $tiles   = false;
+    protected $columns = 2;
+
     public function display($tpl = null)
     {
         $model = $this->getModel();
@@ -53,6 +57,8 @@ class HtmlView extends BaseHtmlView
         $this->showDomain      = (bool) $this->params->get('show_domain', 1);
         $this->newWindow       = (bool) $this->params->get('new_window', 1);
         $this->ownHost         = (string) Uri::getInstance()->getHost();
+        $this->tiles           = $this->params->get('display_style', 'list') === 'tiles';
+        $this->columns         = (int) $this->params->get('columns', 2) === 3 ? 3 : 2;
 
         $this->prepareDocument();
 

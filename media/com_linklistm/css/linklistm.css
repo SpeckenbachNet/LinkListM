@@ -121,3 +121,38 @@
 .linklistm-empty {
     color: var(--llm-muted);
 }
+
+/* Tiles: top categories side by side in a grid (menu item option).
+   Columns depend on the width of the content area, not the window,
+   so a sidebar is taken into account. Blocks of one row get the same height. */
+.linklistm--tiles {
+    container-type: inline-size;
+}
+
+.linklistm--tiles .linklistm-blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.linklistm--tiles .linklistm-block {
+    margin: 0;
+}
+
+@container (min-width: 36rem) {
+    .linklistm--tiles .linklistm-blocks {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@container (min-width: 60rem) {
+    .linklistm--tiles.linklistm--cols-3 .linklistm-blocks {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Long URLs and titles must not widen a tile */
+.linklistm--tiles .linklistm-link {
+    overflow-wrap: anywhere;
+}

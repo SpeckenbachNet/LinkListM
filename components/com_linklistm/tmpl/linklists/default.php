@@ -46,7 +46,7 @@ $renderLinks = function (array $items): void {
 };
 ?>
 
-<div class="com-linklistm linklistm">
+<div class="com-linklistm linklistm<?php echo $this->tiles ? ' linklistm--tiles linklistm--cols-' . $this->columns : ''; ?>">
     <?php if ($this->params->get('show_page_heading')) : ?>
         <h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
     <?php endif; ?>
@@ -55,6 +55,7 @@ $renderLinks = function (array $items): void {
         <p class="linklistm-empty"><?php echo Text::_('COM_LINKLISTM_NO_LINKS'); ?></p>
     <?php endif; ?>
 
+    <div class="linklistm-blocks">
     <?php foreach ($this->blocks as $block) : ?>
         <section class="linklistm-block">
             <h2 class="linklistm-block__title"><?php echo $this->escape($block['title']); ?></h2>
@@ -78,4 +79,5 @@ $renderLinks = function (array $items): void {
             <?php endforeach; ?>
         </section>
     <?php endforeach; ?>
+    </div>
 </div>

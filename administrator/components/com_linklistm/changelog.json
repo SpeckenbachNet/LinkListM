@@ -1,5 +1,17 @@
 [
     {
+        "version": "0.4.0",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "Menu item: new option \"Display\" with \"Tiles\" - the top categories stand side by side in 2 or 3 columns, on narrow screens below each other"
+            ],
+            "de-DE": [
+                "Menüpunkt: neue Option „Darstellung“ mit „Kacheln“ – die Hauptkategorien stehen in 2 oder 3 Spalten nebeneinander, auf schmalen Bildschirmen untereinander"
+            ]
+        }
+    },
+    {
         "version": "0.3.1",
         "date": "2026-11-07",
         "changes": {

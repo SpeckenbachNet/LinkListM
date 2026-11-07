@@ -24,6 +24,29 @@
             />
 
             <field
+                name="display_style"
+                type="list"
+                label="COM_LINKLISTM_FIELD_DISPLAY_STYLE"
+                description="COM_LINKLISTM_FIELD_DISPLAY_STYLE_DESC"
+                default="list"
+            >
+                <option value="list">COM_LINKLISTM_DISPLAY_STYLE_LIST</option>
+                <option value="tiles">COM_LINKLISTM_DISPLAY_STYLE_TILES</option>
+            </field>
+
+            <field
+                name="columns"
+                type="list"
+                label="COM_LINKLISTM_FIELD_COLUMNS"
+                description="COM_LINKLISTM_FIELD_COLUMNS_DESC"
+                default="2"
+                showon="display_style:tiles"
+            >
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </field>
+
+            <field
                 name="include_subcategories"
                 type="radio"
                 label="COM_LINKLISTM_FIELD_INCLUDE_SUBCATEGORIES"
