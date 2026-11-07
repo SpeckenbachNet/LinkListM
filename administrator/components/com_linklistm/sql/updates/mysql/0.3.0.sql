@@ -1,0 +1,1 @@
+-- 0.3.0: overview page, update server, install script. No database changes.

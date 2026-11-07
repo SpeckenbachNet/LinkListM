@@ -1,0 +1,58 @@
+[
+    {
+        "version": "0.3.0",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "Overview as start page in the backend: tiles, category tree with link counts, to-dos, info, system check and changes",
+                "System check: shows when Joomla last checked for updates and warns if the update server does not answer",
+                "Updates via System → Updates (update server updates.speckenbach.net)",
+                "After install or update the changes since the previous version are shown",
+                "Options with permissions"
+            ],
+            "de-DE": [
+                "Übersicht als Startseite im Backend: Kacheln, Kategoriebaum mit Anzahl Links, Aufgaben, Info, Systemcheck und Änderungen",
+                "Systemcheck: zeigt, wann Joomla zuletzt nach Updates gesucht hat, und warnt, wenn der Update-Server nicht antwortet",
+                "Updates über System → Aktualisieren (Update-Server updates.speckenbach.net)",
+                "Nach Installation oder Update werden die Änderungen seit der vorherigen Version angezeigt",
+                "Optionen mit Berechtigungen"
+            ]
+        }
+    },
+    {
+        "version": "0.2.0",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "Menu item: several categories can be selected",
+                "New frontend layout: one box per top category, subcategories with a clear heading instead of indentation",
+                "Options: show domain, external links in a new window",
+                "Fixed: only 20 links were shown",
+                "Fixed: URLs without \"https://\" became links to the own site",
+                "Fixed: links of unpublished or restricted categories were visible",
+                "Start and finish publishing, language"
+            ],
+            "de-DE": [
+                "Menüpunkt: mehrere Kategorien auswählbar",
+                "Neues Layout im Frontend: ein Kasten pro Hauptkategorie, Unterkategorien mit deutlicher Überschrift statt Einrückung",
+                "Optionen: Domain anzeigen, externe Links in neuem Fenster",
+                "Behoben: Es wurden nur 20 Links angezeigt",
+                "Behoben: URLs ohne \"https://\" wurden zu Links auf die eigene Seite",
+                "Behoben: Links aus unveröffentlichten oder geschützten Kategorien waren sichtbar",
+                "Veröffentlichung starten/beenden, Sprache"
+            ]
+        }
+    },
+    {
+        "version": "0.1.0",
+        "date": "2026-10-11",
+        "changes": {
+            "en-GB": [
+                "First version"
+            ],
+            "de-DE": [
+                "Erste Version"
+            ]
+        }
+    }
+]

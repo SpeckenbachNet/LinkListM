@@ -9,7 +9,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 class DisplayController extends BaseController
 {
     // Default view when no view is given in the URL
-    protected $default_view = 'linklists';
+    protected $default_view = 'dashboard';
 
     // Use parent controller's display method with given parameters
     public function display($cachable = false, $urlparams = array())

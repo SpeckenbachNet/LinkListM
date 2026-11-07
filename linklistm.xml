@@ -4,11 +4,12 @@
     <name>COM_LINKLISTM</name>
     <author>Speckenbach.net</author>
     <authorEmail>software@speckenbach.net</authorEmail>
-    <authorUrl>https://www.speckenbach.net/software</authorUrl>
+    <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <description>COM_LINKLISTM_DESCRIPTION</description>
+    <changelogurl>https://updates.speckenbach.net/linklistm/changelog.xml</changelogurl>
 
     <namespace path="src">SpeckenbachNet\Component\LinkListM</namespace>
 
@@ -46,11 +47,14 @@
         </schemas>
     </update>
 
+    <scriptfile>script.php</scriptfile>
+
     <administration>
 
         <menu link="option=com_linklistm">COM_LINKLISTM_MENU_LINKLIST</menu>
 
         <submenu>
+            <menu view="dashboard">COM_LINKLISTM_MENU_DASHBOARD</menu>
             <menu link="option=com_linklistm&amp;view=linklists">COM_LINKLISTM_MENU_LINKS</menu>
             <menu link="option=com_categories&amp;extension=com_linklistm">COM_LINKLISTM_MENU_CATEGORIES</menu>
         </submenu>
@@ -63,6 +67,8 @@
             <folder>tmpl</folder>
             <folder>forms</folder>
             <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>changelog.json</filename>
             <filename>linklistm.xml</filename>
         </files>
 
@@ -74,5 +80,9 @@
         </languages>
 
     </administration>
+
+    <updateservers>
+        <server type="extension" priority="1" name="LinkListM">https://updates.speckenbach.net/linklistm/updates.xml</server>
+    </updateservers>
 
 </extension>

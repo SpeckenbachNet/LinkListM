@@ -106,11 +106,9 @@ protected function addToolbar()
                 ->listCheck(true);
         }
 
-		// Show Options button if user has access rights.
-        // if ($user->authorise('core.admin', 'com_linklistm') || $user->authorise('core.options', 'com_weblinks')) {
-        //     ToolbarHelper::preferences('com_linklistm');
-        // }
-
-        ToolbarHelper::help('Components_Linklists_Links');
+        // Show Options button if user has access rights
+        if ($user->authorise('core.admin', 'com_linklistm') || $user->authorise('core.options', 'com_linklistm')) {
+            ToolbarHelper::preferences('com_linklistm');
+        }
     }
 }
