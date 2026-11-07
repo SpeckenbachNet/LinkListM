@@ -1,5 +1,17 @@
 [
     {
+        "version": "0.6.2",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "Overview: \"Report a bug\" opens a new GitHub issue with the versions filled in (instead of an email)"
+            ],
+            "de-DE": [
+                "Übersicht: „Fehler melden“ öffnet ein neues GitHub-Issue mit den Versionsangaben (statt einer E-Mail)"
+            ]
+        }
+    },
+    {
         "version": "0.6.1",
         "date": "2026-11-07",
         "changes": {

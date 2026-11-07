@@ -1,0 +1,1 @@
+-- 0.6.2: bug reports via GitHub issues. No database changes.

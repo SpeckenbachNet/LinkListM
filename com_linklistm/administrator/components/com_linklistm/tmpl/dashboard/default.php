@@ -167,11 +167,10 @@ $tile = function (string $url, string $icon, string $name, ?int $amount = null, 
                     <?php endif; ?>
                 </p>
                 <p class="small text-muted"><?php echo $e($info['license']); ?></p>
-                <?php if ($info['email'] !== '') : ?>
-                    <a class="btn btn-sm btn-outline-secondary" href="mailto:<?php echo $e($info['email']); ?>?subject=<?php echo rawurlencode('com_linklistm ' . $info['version']); ?>">
-                        <?php echo Text::_('COM_LINKLISTM_DASHBOARD_REPORT_MAIL'); ?>
-                    </a>
-                <?php endif; ?>
+                <a class="btn btn-sm btn-outline-secondary" href="<?php echo $e($this->issueUrl); ?>" target="_blank" rel="noopener">
+                    <span class="icon-bug" aria-hidden="true"></span>
+                    <?php echo Text::_('COM_LINKLISTM_DASHBOARD_REPORT_GITHUB'); ?>
+                </a>
             </div>
         </div>
 

@@ -19,6 +19,9 @@ class HtmlView extends BaseHtmlView
     /** The author's tip page (fixed: it belongs to the developer, not the site owner). */
     public const DONATE_URL = 'https://paypal.me/michaelspeckenbach';
 
+    /** Bug reports go to the GitHub issues of the repository (fixed: it belongs to the developer). */
+    public const ISSUES_URL = 'https://github.com/SpeckenbachNet/LinkListM/issues/new';
+
     /** @var array{links: int, categories: int} */
     public array $tiles = [];
 
@@ -41,6 +44,9 @@ class HtmlView extends BaseHtmlView
 
     public string $donateUrl = self::DONATE_URL;
 
+    /** New GitHub issue, title and versions filled in */
+    public string $issueUrl = '';
+
     public function display($tpl = null)
     {
         /** @var DashboardModel $model */
@@ -53,6 +59,11 @@ class HtmlView extends BaseHtmlView
         $this->todos      = $model->getTodos($this->categories, $this->update);
         $this->checks     = $model->getChecks($this->info['version'], $this->update);
         $this->changelog  = $model->getChangelog();
+        $this->issueUrl   = self::ISSUES_URL . '?' . http_build_query([
+            'title' => 'com_linklistm ' . $this->info['version'] . ': ',
+            'body'  => "LinkListM " . $this->info['version'] . ", Joomla " . JVERSION . ", PHP " . PHP_VERSION . "\n\n"
+                . "### What happened?\n\n\n### Steps to reproduce\n\n1. \n",
+        ], '', '&', PHP_QUERY_RFC3986);
 
         $canDo            = ContentHelper::getActions('com_linklistm');
         $this->canCreate  = (bool) $canDo->get('core.create');
