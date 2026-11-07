@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+
+    <name>COM_LINKLISTM</name>
+    <author>Speckenbach.net</author>
+    <authorEmail>software@speckenbach.net</authorEmail>
+    <authorUrl>https://software.speckenbach.net</authorUrl>
+    <creationDate>2026-11-07</creationDate>
+    <license>GNU General Public License version 2 or later</license>
+    <version>0.5.0</version>
+    <description>COM_LINKLISTM_DESCRIPTION</description>
+
+    <namespace path="src">SpeckenbachNet\Component\LinkListM</namespace>
+
+    <files folder="components/com_linklistm">
+        <folder>layouts</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+
+    <media destination="com_linklistm" folder="media/com_linklistm">
+        <folder>css</folder>
+    </media>
+
+    <languages folder="language">
+        <language tag="de-DE">de-DE/com_linklistm.ini</language>
+        <language tag="de-DE">de-DE/com_linklistm.sys.ini</language>
+        <language tag="en-GB">en-GB/com_linklistm.ini</language>
+        <language tag="en-GB">en-GB/com_linklistm.sys.ini</language>
+    </languages>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/linklistm.install.sql</file>
+        </sql>
+    </install>
+
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/linklistm.uninstall.sql</file>
+        </sql>
+    </uninstall>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <scriptfile>script.php</scriptfile>
+
+    <administration>
+
+        <menu link="option=com_linklistm">COM_LINKLISTM_MENU_LINKLIST</menu>
+
+        <submenu>
+            <menu view="dashboard">COM_LINKLISTM_MENU_DASHBOARD</menu>
+            <menu link="option=com_linklistm&amp;view=linklists">COM_LINKLISTM_MENU_LINKS</menu>
+            <menu link="option=com_categories&amp;extension=com_linklistm">COM_LINKLISTM_MENU_CATEGORIES</menu>
+        </submenu>
+
+        <files folder="administrator/components/com_linklistm">
+            <folder>language</folder>
+            <folder>sql</folder>
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+            <folder>forms</folder>
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>changelog.json</filename>
+            <filename>linklistm.xml</filename>
+        </files>
+
+        <languages folder="administrator/components/com_linklistm/language">
+            <language tag="de-DE">de-DE/com_linklistm.ini</language>
+            <language tag="de-DE">de-DE/com_linklistm.sys.ini</language>
+            <language tag="en-GB">en-GB/com_linklistm.ini</language>
+            <language tag="en-GB">en-GB/com_linklistm.sys.ini</language>
+        </languages>
+
+    </administration>
+
+</extension>

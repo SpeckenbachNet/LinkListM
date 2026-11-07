@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+    <name>plg_content_linklistm</name>
+    <author>Speckenbach.net</author>
+    <authorEmail>software@speckenbach.net</authorEmail>
+    <authorUrl>https://software.speckenbach.net</authorUrl>
+    <creationDate>2026-11-07</creationDate>
+    <license>GNU General Public License version 2 or later</license>
+    <version>0.5.0</version>
+    <description>PLG_CONTENT_LINKLISTM_XML_DESCRIPTION</description>
+
+    <namespace path="src">SpeckenbachNet\Plugin\Content\LinkListM</namespace>
+
+    <files>
+        <folder plugin="linklistm">services</folder>
+        <folder>src</folder>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_content_linklistm.ini</language>
+        <language tag="en-GB">en-GB/plg_content_linklistm.sys.ini</language>
+        <language tag="de-DE">de-DE/plg_content_linklistm.ini</language>
+        <language tag="de-DE">de-DE/plg_content_linklistm.sys.ini</language>
+    </languages>
+</extension>

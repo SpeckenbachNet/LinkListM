@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+    <name>PKG_LINKLISTM</name>
+    <packagename>linklistm</packagename>
+    <author>Speckenbach.net</author>
+    <authorEmail>software@speckenbach.net</authorEmail>
+    <authorUrl>https://software.speckenbach.net</authorUrl>
+    <creationDate>2026-11-07</creationDate>
+    <license>GNU General Public License version 2 or later</license>
+    <version>0.5.0</version>
+    <description>PKG_LINKLISTM_XML_DESCRIPTION</description>
+    <changelogurl>https://github.com/SpeckenbachNet/LinkListM/releases/latest/download/changelog.xml</changelogurl>
+    <blockChildUninstall>true</blockChildUninstall>
+
+    <scriptfile>script.php</scriptfile>
+
+    <files folder="packages">
+        <file type="component" id="com_linklistm">com_linklistm.zip</file>
+        <file type="plugin" id="linklistm" group="content">plg_content_linklistm.zip</file>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/pkg_linklistm.sys.ini</language>
+        <language tag="de-DE">de-DE/pkg_linklistm.sys.ini</language>
+    </languages>
+
+    <updateservers>
+        <server type="extension" priority="1" name="LinkListM">https://github.com/SpeckenbachNet/LinkListM/releases/latest/download/updates.xml</server>
+    </updateservers>
+</extension>

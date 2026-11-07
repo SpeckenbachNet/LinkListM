@@ -5,9 +5,9 @@
  *
  *   updates.xml                  polled by Joomla (System → Updates)
  *   changelog.xml                shown in Joomla's update / extension manager
- *   com_linklistm-<ver>.zip     copy of the package, one file per version
+ *   pkg_linklistm-<ver>.zip     copy of the package, one file per version
  *
- * Usage: php build/make-update.php <path to com_linklistm.zip>
+ * Usage: php build/make-update.php <path to pkg_linklistm.zip>
  *
  * Version and date come from the manifest, the change notes from
  * administrator/changelog.json. An entry there may carry "security": 1-4
@@ -19,7 +19,7 @@
 // Tags are always "v" + version (vX.Y.Z).
 const REPO_URL     = 'https://github.com/SpeckenbachNet/LinkListM';
 const LATEST_URL   = REPO_URL . '/releases/latest/download/';
-const ELEMENT      = 'com_linklistm';
+const ELEMENT      = 'pkg_linklistm';
 const DISPLAY_NAME = 'LinkListM';
 const PHP_MINIMUM  = '8.3';
 
@@ -31,9 +31,9 @@ if (!is_file($zip)) {
     exit(1);
 }
 
-$manifest = simplexml_load_file($root . '/linklistm.xml');
+$manifest = simplexml_load_file($root . '/pkg_linklistm/pkg_linklistm.xml');
 $version  = (string) $manifest->version;
-$entries  = json_decode((string) file_get_contents($root . '/administrator/components/com_linklistm/changelog.json'), true);
+$entries  = json_decode((string) file_get_contents($root . '/com_linklistm/administrator/components/com_linklistm/changelog.json'), true);
 
 if (!is_array($entries)) {
     fwrite(STDERR, "administrator/changelog.json is not valid JSON\n");
@@ -83,8 +83,9 @@ $updates = '<?xml version="1.0" encoding="utf-8"?>' . "\n"
     . '        <name>' . $e(DISPLAY_NAME) . "</name>\n"
     . '        <description>' . $e(DISPLAY_NAME . ' ' . $version) . "</description>\n"
     . '        <element>' . ELEMENT . "</element>\n"
-    . "        <type>component</type>\n"
-    . "        <client>administrator</client>\n"
+    . "        <type>package</type>\n"
+    // Packages are site extensions (client_id 0); without it Joomla assumes administrator
+    . "        <client>site</client>\n"
     . '        <version>' . $e($version) . "</version>\n"
     . '        <infourl title="' . $e(DISPLAY_NAME) . '">' . $e(REPO_URL . '/releases/tag/' . $tag) . "</infourl>\n"
     . '        <changelogurl>' . LATEST_URL . "changelog.xml</changelogurl>\n"
@@ -112,7 +113,7 @@ foreach ($entries as $entry) {
 
     $changelog .= "    <changelog>\n"
         . '        <element>' . ELEMENT . "</element>\n"
-        . "        <type>component</type>\n"
+        . "        <type>package</type>\n"
         . '        <version>' . $e((string) $entry['version']) . "</version>\n"
         . "        <$section>\n";
 

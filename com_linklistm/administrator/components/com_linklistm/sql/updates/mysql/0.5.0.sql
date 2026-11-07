@@ -1,0 +1,1 @@
+-- 0.5.0: LinkListM as package with content plugin. No database changes.
