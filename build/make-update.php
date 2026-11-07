@@ -4,6 +4,7 @@
  * Writes the files for a GitHub release into build/dist/linklistm/:
  *
  *   updates.xml                  polled by Joomla (System → Updates)
+ *   release-notes.md             English changes since the current GitHub release, for the release text
  *   changelog.xml                shown in Joomla's update / extension manager
  *   pkg_linklistm-<ver>.zip     copy of the package, one file per version
  *
@@ -135,6 +136,55 @@ $changelog .= "</changelogs>\n";
 file_put_contents($dist . '/updates.xml', $updates);
 file_put_contents($dist . '/changelog.xml', $changelog);
 
+// Release notes (English) for the GitHub release text: every version since the newest published
+// release older than this one (no drafts, no pre-releases). GitHub's public API lists the releases;
+// without an answer only the version being built is listed.
+$previous = '';
+$api      = @file_get_contents(
+    'https://api.github.com/repos/' . substr(REPO_URL, strlen('https://github.com/')) . '/releases?per_page=100',
+    false,
+    stream_context_create(['http' => ['timeout' => 5, 'header' => "User-Agent: make-update\r\nAccept: application/vnd.github+json\r\n"]])
+);
+
+if ($api !== false) {
+    foreach ((array) json_decode($api, true) as $release) {
+        $releaseVersion = ltrim((string) ($release['tag_name'] ?? ''), 'v');
+
+        if (!empty($release['draft']) || !empty($release['prerelease']) || version_compare($releaseVersion, $version, '>=')) {
+            continue;
+        }
+
+        if ($previous === '' || version_compare($releaseVersion, $previous, '>')) {
+            $previous = $releaseVersion;
+        }
+    }
+}
+
+$notes = '';
+
+foreach ($entries as $entry) {
+    $entryVersion = (string) ($entry['version'] ?? '');
+    $wanted       = $previous !== ''
+        ? version_compare($entryVersion, $previous, '>') && version_compare($entryVersion, $version, '<=')
+        : $entryVersion === $version;
+
+    if (!$wanted) {
+        continue;
+    }
+
+    $changes = (array) ($entry['changes'] ?? []);
+    $changes = array_is_list($changes) ? $changes : (array) ($changes['en-GB'] ?? []);
+    $notes  .= "### $entryVersion\n\n";
+
+    foreach ($changes as $change) {
+        $notes .= '- ' . $change . "\n";
+    }
+
+    $notes .= "\n";
+}
+
+file_put_contents($dist . '/release-notes.md', rtrim($notes) . "\n");
+
 echo "==> Update server files for $version" . ($security > 0 ? " (security level $security)" : '') . " in build/dist/linklistm/:\n";
 
 foreach (['updates.xml', 'changelog.xml', $zipName] as $file) {
@@ -145,4 +195,6 @@ echo "\n==> To publish $version as an update:\n"
     . "    1. git push origin main --tags        (tag $tag must exist on GitHub)\n"
     . "    2. " . REPO_URL . "/releases/new  ->  choose tag $tag\n"
     . "    3. drag the three files above into the release\n"
-    . "    4. \"Publish release\" (no pre-release, so it becomes \"Latest\")\n";
+    . "    4. paste release-notes.md into the description"
+    . ($previous !== '' ? " (versions after release v$previous)" : ' (only this version: no older release found)') . "\n"
+    . "    5. \"Publish release\" (no pre-release, so it becomes \"Latest\")\n";
