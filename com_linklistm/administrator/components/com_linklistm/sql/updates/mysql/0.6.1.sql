@@ -1,0 +1,1 @@
+-- 0.6.1: author name in the manifests. No database changes.

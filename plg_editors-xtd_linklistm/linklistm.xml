@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" group="editors-xtd" method="upgrade">
     <name>plg_editors-xtd_linklistm</name>
-    <author>Speckenbach.net</author>
+    <author>Michael Speckenbach</author>
     <authorEmail>software@speckenbach.net</authorEmail>
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
     <description>PLG_EDITORS-XTD_LINKLISTM_XML_DESCRIPTION</description>
 
     <namespace path="src">SpeckenbachNet\Plugin\EditorsXtd\LinkListM</namespace>

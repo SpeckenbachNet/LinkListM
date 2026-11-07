@@ -1,5 +1,17 @@
 [
     {
+        "version": "0.6.1",
+        "date": "2026-11-07",
+        "changes": {
+            "en-GB": [
+                "Author shown as \"Michael Speckenbach\" (as in the other extensions); README on GitHub"
+            ],
+            "de-DE": [
+                "Autor heißt jetzt „Michael Speckenbach“ (wie bei den anderen Erweiterungen); README auf GitHub"
+            ]
+        }
+    },
+    {
         "version": "0.6.0",
         "date": "2026-11-07",
         "changes": {

@@ -2,12 +2,12 @@
 <extension type="package" method="upgrade">
     <name>PKG_LINKLISTM</name>
     <packagename>linklistm</packagename>
-    <author>Speckenbach.net</author>
+    <author>Michael Speckenbach</author>
     <authorEmail>software@speckenbach.net</authorEmail>
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
     <description>PKG_LINKLISTM_XML_DESCRIPTION</description>
     <changelogurl>https://github.com/SpeckenbachNet/LinkListM/releases/latest/download/changelog.xml</changelogurl>
     <blockChildUninstall>true</blockChildUninstall>

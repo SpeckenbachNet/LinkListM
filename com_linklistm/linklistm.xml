@@ -2,12 +2,12 @@
 <extension type="component" method="upgrade">
 
     <name>COM_LINKLISTM</name>
-    <author>Speckenbach.net</author>
+    <author>Michael Speckenbach</author>
     <authorEmail>software@speckenbach.net</authorEmail>
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-07</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
     <description>COM_LINKLISTM_DESCRIPTION</description>
 
     <namespace path="src">SpeckenbachNet\Component\LinkListM</namespace>
